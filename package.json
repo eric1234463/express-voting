@@ -1,0 +1,23 @@
+{
+  "name": "express-voting",
+  "version": "1.0.0",
+  "description": "A Simple Voting System for Express JS Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test",
+    "start": "nodemon"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Eric Kwong",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.6",
+    "winston": "^3.3.3"
+  }
+}
