@@ -6,10 +6,10 @@ class CampaignService {
     const schema = yup.object().shape({
       candidates: yup.array().of(yup.object().shape({
         name: yup.string()
-      })),
-      startedAt: yup.date().min(new Date()),
-      endedAt: yup.date().min(new Date()),
-      name: yup.string()
+      })).required(),
+      startedAt: yup.date().min(new Date()).required(),
+      endedAt: yup.date().min(new Date()).required(),
+      name: yup.string().required()
     })
 
     await schema.validate(campaignPayload)

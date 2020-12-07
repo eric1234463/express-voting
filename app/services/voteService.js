@@ -27,7 +27,7 @@ class VoteService {
       throw BaseError.createError('campaign is not exist')
     }
 
-    if (new Date() < campaign.startedAt || new Date() > campaign.endedAt) {
+    if (VoteService.getCurrentDate() < campaign.startedAt || VoteService.getCurrentDate() > campaign.endedAt) {
       throw BaseError.createError('campaign is already end or not yet start')
     }
 
@@ -47,6 +47,10 @@ class VoteService {
 
   static async findOne({ user, campaign }) {
     return Vote.findOne({ user, campaign: campaign });
+  }
+
+  static getCurrentDate () {
+    return new Date()
   }
 }
 

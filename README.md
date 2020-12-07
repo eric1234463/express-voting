@@ -1,5 +1,12 @@
 # Express JS Simple Voting System
 
+
+## Start the project Script
+```
+1. docker-compose up -d
+2. npm start
+3. npm run test for test unit test
+```
 ## Feature List
 - Create Voting Campaign
 ```
@@ -28,7 +35,7 @@ curl --location --request POST 'http://localhost:3000/campaigns/5fcdd8edcabeca3e
 --header 'Content-Type: application/json' \
 --header 'Cookie: session=eyJ1c2VyIjp7Il9pZCI6IjVmY2RkMGIwZTk4Njg5ZjkzNDY3NzAxZCIsImhraWQiOiJQNjQzNzU0NCIsIl9fdiI6MH19; session.sig=hl01Vs3ciXl9fZM-fBp-bz2n1yE' \
 --data-raw '{
-    "hkid": "P6437544",
+    "hkid": "A123456",
     "candidate": "5fcdcf8a21268d3900f3b3f9"
 }'
 ```
@@ -49,3 +56,4 @@ curl --location --request GET 'http://localhost:3000/campaigns' \
 - ExpressJS
 - Winston
 - MongoDB
+- Jest
