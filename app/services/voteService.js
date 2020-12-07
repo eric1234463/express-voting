@@ -1,5 +1,6 @@
 const yup = require('yup');
 const { User, Vote, Candidate, Campaign } = require('../models')
+const BaseError = require('../errors/BaseError');
 
 class VoteService {
   static async createOne(votePayload, req) {
@@ -17,17 +18,17 @@ class VoteService {
     const vote = await VoteService.findOne({ user, campaign: votePayload.campaign });
 
     if (vote) {
-      throw new Error('you already voted for this campaign')
+      throw BaseError.createError('you already voted for this campaign')
     }
 
     const campaign = await Campaign.findOneById(votePayload.campaign)
 
     if (!campaign) {
-      throw new Error('campaign is not exist')
+      throw BaseError.createError('campaign is not exist')
     }
 
     if (new Date() < campaign.startedAt || new Date() > campaign.endedAt) {
-      throw new Error('campaign is already end or not yet start')
+      throw BaseError.createError('campaign is already end or not yet start')
     }
 
     const newVote = await Vote.createOne({
