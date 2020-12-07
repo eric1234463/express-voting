@@ -1,6 +1,8 @@
+const e = require("express");
+
 const jsonHandler = (req, res, next) => {
   if (res.locals.error) {
-    return res.status(res.locals.error.statusCode).json(res.locals.error.response)
+    return res.status(res.locals.error.statusCode || 500).json({ message: res.locals.error.message })
   }
 
   return res.status(res.locals.statusCode || 200).json(res.locals.data)

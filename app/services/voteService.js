@@ -1,7 +1,16 @@
-const { User, Vote, Candidate } = require('../models')
+const yup = require('yup');
+const { User, Vote, Candidate, Campaign } = require('../models')
 
 class VoteService {
   static async createOne(votePayload, req) {
+    const schema = yup.object().shape({
+      campaign: yup.string(),
+      candidate: yup.string(),
+      hkid: yup.string()
+    })
+
+    await schema.validate(votePayload);
+
     const user = await User.upsert({ hkid: votePayload.hkid });
     req.session.user = user;
 
@@ -9,6 +18,16 @@ class VoteService {
 
     if (vote) {
       throw new Error('you already voted for this campaign')
+    }
+
+    const campaign = await Campaign.findOneById(votePayload.campaign)
+
+    if (!campaign) {
+      throw new Error('campaign is not exist')
+    }
+
+    if (new Date() < campaign.startedAt || new Date() > campaign.endedAt) {
+      throw new Error('campaign is already end or not yet start')
     }
 
     const newVote = await Vote.createOne({

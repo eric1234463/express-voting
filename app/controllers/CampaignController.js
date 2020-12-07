@@ -8,7 +8,11 @@ class CampaignController {
   }
 
   static async create(req, res, next) {
-    res.locals.data = await CampaignService.createOne(req.body);
+    try {
+      res.locals.data = await CampaignService.createOne(req.body);
+    } catch(e) {
+      res.locals.error = e;
+    }
     return next();
   }
 
