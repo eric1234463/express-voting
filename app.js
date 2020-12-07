@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 class ExpressApp {
   constructor() {
     var express = require('express')
@@ -6,6 +8,7 @@ class ExpressApp {
 
   async start() {
     const port = 3000
+    await this.loadDependencies();
     await this.loadMiddleWares();
     await this.loadRoutes();
     await this.loadResponseHandler();
@@ -27,6 +30,17 @@ class ExpressApp {
   async loadResponseHandler() {
     const responseHandlers = require('./app/responseHandlers');
     this.app.use(responseHandlers);
+  }
+
+  async loadDependencies () {
+    try {
+      const mongo = require('./app/services/mongo');
+      await mongo.connect();
+      await mongo.loadModels();
+    } catch(e) {
+      console.log(e);
+      throw e;
+    }
   }
 }
 
